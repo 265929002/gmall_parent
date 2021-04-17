@@ -82,6 +82,7 @@ public class BaseTrademarkController {
     @GetMapping("getTrademarkList")
     public Result getTrademarkList(){
 
+
         return Result.ok(baseTrademarkService.list(null));
     }
 

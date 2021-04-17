@@ -4,7 +4,9 @@ import com.atguigu.gmall.model.product.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 public interface ManageService {
 
@@ -64,4 +66,77 @@ public interface ManageService {
      * @return
      */
     IPage<SpuInfo> getSpuInfoList(Page<SpuInfo> spuInfoPage, SpuInfo spuInfo);
+
+    /**
+     * 获取所有的销售属性列表
+     * @return
+     */
+    List<BaseSaleAttr> getbaseSaleAttrList();
+
+    /**
+     * 保存spuInfo数据  商品属性数据
+     * @param spuInfo
+     */
+    void saveSpuInfo(SpuInfo spuInfo);
+
+    /**
+     * 根据spuId获取图片列表
+     * @param spuId
+     * @return
+     */
+    List<SpuImage> getSpuImageList(Long spuId);
+
+    /**
+     * 根据spuId获取销售属性
+     * @param spuId
+     * @return
+     */
+    List<SpuSaleAttr> spuSaleAttrList(Long spuId);
+
+//    sku添加
+    void saveSkuInfo(SkuInfo skuInfo);
+
+    IPage getSkuInfoLsit(Page<SkuInfo> skuInfoPage);
+
+    void onSale(Long skuId);
+
+    void cancelSale(Long skuId);
+
+
+    /**
+     * 根据skuId 查询skuInfo 和skuImage
+     * @param skuId
+     * @return
+     */
+    SkuInfo getSkuInfo(Long skuId);
+
+
+    /**
+     * 通过三级分类id查询分类信息
+     * @param category3Id
+     * @return
+     */
+    BaseCategoryView getCategoryViewByCategory3Id(Long category3Id);
+
+    /**
+     * 根据skuId查询商品价格
+     * @param skuId
+     * @return
+     */
+    BigDecimal getSkuPrice(Long skuId);
+
+    /**
+     * 根据spuId，skuId 查询销售属性集合
+     * @param skuId
+     * @param spuId
+     * @return
+     */
+    List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(Long skuId, Long spuId);
+
+    /**
+     * 根据spuid获取销售属性值id与skuid的组合数据
+     * @param spuId
+     * @return
+     */
+    Map getSkuValueIdsMap(Long spuId);
 }

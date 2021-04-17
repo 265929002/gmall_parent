@@ -7,7 +7,7 @@
     <resultMap id="BaseAttrInfoMap" type="com.atguigu.gmall.model.product.BaseAttrInfo" autoMapping="true">
         <id column="id" property="id"></id><!--id对应着1对多-->
         <collection property="attrValueList" ofType="com.atguigu.gmall.model.product.BaseAttrValue" autoMapping="true">
-
+            <id column="attr_value_id" property="id"></id>
         </collection>
     </resultMap>
 
@@ -17,7 +17,8 @@
                 bai.category_id,
                 bai.attr_name,
                 bav.id attr_value_id,
-                bav.value_name
+                bav.value_name,
+                bav.attr_id
         from base_attr_info bai
             inner join base_attr_value bav on bai.id = bav.attr_id
         <where>

@@ -16,3 +16,11 @@ spring:
           uri: lb://service-product       #负载均衡  轮询策略
           predicates:
             - Path=/*/product/** # 路径匹配
+        - id: service-item
+          uri: lb://service-item       #负载均衡  轮询策略
+          predicates:
+            - Path=/*/item/** # 路径匹配
+        - id: web-item
+          uri: lb://web-all
+          predicates:
+            - Host=item.gmall.com
