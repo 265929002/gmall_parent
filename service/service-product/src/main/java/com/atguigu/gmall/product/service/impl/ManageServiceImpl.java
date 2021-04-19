@@ -1,5 +1,6 @@
 package com.atguigu.gmall.product.service.impl;
 
+import com.atguigu.gmall.common.cache.GmallCache;
 import com.atguigu.gmall.model.product.*;
 import com.atguigu.gmall.product.mapper.*;
 import com.atguigu.gmall.product.service.ManageService;
@@ -281,6 +282,7 @@ public class ManageServiceImpl implements ManageService {
      * @return
      */
     @Override
+    @GmallCache(prefix = "sku:")
     public SkuInfo getSkuInfo(Long skuId) {
 //        查询skuInfo信息
         SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
@@ -294,6 +296,7 @@ public class ManageServiceImpl implements ManageService {
     }
 
     @Override
+    @GmallCache(prefix = "Category3:")
     public BaseCategoryView getCategoryViewByCategory3Id(Long category3Id) {
 
         return baseCategoryViewMapper.selectById(category3Id);
@@ -305,6 +308,7 @@ public class ManageServiceImpl implements ManageService {
      * @return
      */
     @Override
+    @GmallCache(prefix = "Price:")
     public BigDecimal getSkuPrice(Long skuId) {
         SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
         if (skuInfo!=null){
@@ -322,6 +326,7 @@ public class ManageServiceImpl implements ManageService {
      * @return
      */
     @Override
+    @GmallCache(prefix = "SaleAttrListCheck:")
     public List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(Long skuId, Long spuId) {
         return spuSaleAttrMapper.selectSpuSaleAttrListCheckBySku(skuId, spuId);
     }
@@ -332,6 +337,7 @@ public class ManageServiceImpl implements ManageService {
      * @return
      */
     @Override
+    @GmallCache(prefix = "SkuValueIdsMap")
     public Map getSkuValueIdsMap(Long spuId) {
         Map map = new HashMap();
 

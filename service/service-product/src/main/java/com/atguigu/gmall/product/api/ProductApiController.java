@@ -20,7 +20,7 @@ public class ProductApiController {
 
     @Autowired
     private ManageService manageService;
-
+//通过skuId获取skuInfo和skuImage
     @GetMapping("inner/getSkuInfo/{skuId}")
     public SkuInfo getSkuInfo(@PathVariable("skuId") Long skuId){
         SkuInfo skuInfo = manageService.getSkuInfo(skuId);

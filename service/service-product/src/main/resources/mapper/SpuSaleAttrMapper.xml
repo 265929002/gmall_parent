@@ -22,12 +22,12 @@
     </select>
 
     <select id="selectSpuSaleAttrListCheckBySku" resultMap="SpuSaleAttrMap">
-        SELECT
+    SELECT
    ssa.id,
    ssa.spu_id,
    ssa.base_sale_attr_id,
    ssa.sale_attr_name,
-   ssav.id sale_attr_sale_value_id,
+   ssav.id sale_attr_value_id,
    ssav.sale_attr_value_name,
    ssav2.sku_id,
    IF(ssav2.sku_id IS NULL,0,1) is_checked
