@@ -1,8 +1,18 @@
 server:
   port: 80
 spring:
+
   application:
     name: api-gateway
+
+  redis:  #在网关中作鉴权  判断是否需要登录
+    host: 192.168.200.128
+    port: 6379
+    database: 0
+    timeout: 1800000
+    password:
+
+
   cloud:
     nacos:
       discovery:
@@ -16,11 +26,36 @@ spring:
           uri: lb://service-product       #负载均衡  轮询策略
           predicates:
             - Path=/*/product/** # 路径匹配
+
         - id: service-item
           uri: lb://service-item       #负载均衡  轮询策略
           predicates:
             - Path=/*/item/** # 路径匹配
+
+        - id: service-user
+          uri: lb://service-user
+          predicates:
+            - Path=/*/user/**
+
         - id: web-item
           uri: lb://web-all
           predicates:
             - Host=item.gmall.com
+        #==================首页前端==========================
+        - id: web-index
+          uri: lb://web-all
+          predicates:
+            - Host=www.gmall.com
+        #==================web前端==========================
+        - id: web-list
+          uri: lb://web-all
+          predicates:
+            - Host=list.gmall.com
+        #==================登录==========================
+        - id: web-passport
+          uri: lb://web-all
+          predicates:
+            - Host=passport.gmall.com
+
+authUrls: #白名单
+  url: trade.html,myOrder.html  # 需要做登录的页面

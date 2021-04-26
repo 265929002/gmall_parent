@@ -1,5 +1,6 @@
 package com.atguigu.gmall.product.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.atguigu.gmall.model.product.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -139,4 +140,26 @@ public interface ManageService {
      * @return
      */
     Map getSkuValueIdsMap(Long spuId);
+
+    /**
+     * 获取全部分类信息
+     * @return
+     */
+    List<JSONObject> getBaseCategoryList();
+
+    /**
+     * 通过品牌Id 来查询数据
+     * @param tmId
+     * @return
+     */
+    BaseTrademark getTrademarkByTmId(Long tmId);
+
+
+    /**
+     * 通过skuId 查询平台属性和属性值
+     * @param skuId
+     * @return
+     */
+    List<BaseAttrInfo> getAttrList(Long skuId);
+
 }

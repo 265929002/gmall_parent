@@ -6,6 +6,8 @@ package com.atguigu.gmall.common.constant;
  */
 public class RedisConst {
 
+
+
     public static final String SKUKEY_PREFIX = "sku:";
     public static final String SKUKEY_SUFFIX = ":info";
     //单位：秒

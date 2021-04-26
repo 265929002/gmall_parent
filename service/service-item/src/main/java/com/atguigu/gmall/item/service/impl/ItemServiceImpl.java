@@ -3,6 +3,7 @@ package com.atguigu.gmall.item.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.atguigu.gmall.client.ProductFeignClient;
 import com.atguigu.gmall.item.service.ItemService;
+import com.atguigu.gmall.list.client.ListFeignClient;
 import com.atguigu.gmall.model.product.BaseCategoryView;
 import com.atguigu.gmall.model.product.SkuInfo;
 import com.atguigu.gmall.model.product.SpuSaleAttr;
@@ -21,6 +22,10 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ProductFeignClient productFeignClient;
+//    @Autowired
+//    private ThreadPoolExecutor threadPoolExecutor;//线程池
+    @Autowired
+    private ListFeignClient listFeignClient;
 
     @Override
     public Map<String, Object> getBySkuId(Long skuId) {
@@ -29,10 +34,11 @@ public class ItemServiceImpl implements ItemService {
         //  声明对象
         Map<String, Object> result = new HashMap<>();
 
+
         CompletableFuture<SkuInfo> skuInfoCompletableFuture = CompletableFuture.supplyAsync(() -> {
             //  获取到的数据是skuInfo + skuImageList
             SkuInfo skuInfo = productFeignClient.getSkuInfo(skuId);
-            result.put("skuInfo",skuInfo);
+            result.put("skuInfo", skuInfo);
             return skuInfo;
         });
         CompletableFuture<Void> categoryViewCompletableFuture = skuInfoCompletableFuture.thenAcceptAsync(skuInfo -> {
@@ -62,13 +68,21 @@ public class ItemServiceImpl implements ItemService {
             result.put("price", skuPrice);
             //  返回map 集合 Thymeleaf 渲染：能用map 存储数据！
         });
-            CompletableFuture.allOf(
-                    skuInfoCompletableFuture,
-                    categoryViewCompletableFuture,
-                    spuSaleAttrCompletableFuture,
-                    mapCompletableFuture,
-                    priceCompletableFuture
-            ).join();
+
+        //调用热度排名方法
+        CompletableFuture<Void> incrHotScoreFuture = CompletableFuture.runAsync(() -> {
+            listFeignClient.incrHotScore(skuId); //没有返回值
+        });
+
+
+        CompletableFuture.allOf(
+                skuInfoCompletableFuture,
+                categoryViewCompletableFuture,
+                spuSaleAttrCompletableFuture,
+                mapCompletableFuture,
+                priceCompletableFuture,
+                incrHotScoreFuture
+        ).join();
 
         return result;
 

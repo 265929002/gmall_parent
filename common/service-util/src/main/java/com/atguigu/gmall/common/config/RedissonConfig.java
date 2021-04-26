@@ -39,7 +39,7 @@ public class RedissonConfig {
     @Bean
     RedissonClient redissonSingle() {
         Config config = new Config();
-
+        RedissonClient redissonClient;
         if(StringUtils.isEmpty(host)){
             throw new RuntimeException("host is  empty");
         }
