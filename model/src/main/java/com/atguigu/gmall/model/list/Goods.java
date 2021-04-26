@@ -13,7 +13,7 @@ import java.util.List;
 @Data       //索引库名          类型              分片          副本
 @Document(indexName = "goods" ,type = "info",shards = 3,replicas = 2)
 public class Goods {
-    // 商品Id
+    // 商品Id    skuid
     @Id
     private Long id;
 
