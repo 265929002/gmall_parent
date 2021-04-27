@@ -41,6 +41,10 @@ spring:
           uri: lb://web-all
           predicates:
             - Host=item.gmall.com
+        - id: service-cart
+          uri: lb://service-cart
+          predicates:
+            - Path=/*/cart/**
         #==================首页前端==========================
         - id: web-index
           uri: lb://web-all
@@ -56,6 +60,11 @@ spring:
           uri: lb://web-all
           predicates:
             - Host=passport.gmall.com
+        - id: web-cart
+          uri: lb://web-all
+          predicates:
+            - Host=cart.gmall.com
+
 
 authUrls: #白名单
   url: trade.html,myOrder.html  # 需要做登录的页面

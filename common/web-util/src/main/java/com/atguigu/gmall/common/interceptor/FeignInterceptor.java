@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 
 @Component
 public class FeignInterceptor implements RequestInterceptor {
-
+    /**
+     * request请求拦截器，这里用来拦截header信息，获取用户id
+     * @param requestTemplate
+     */
     public void apply(RequestTemplate requestTemplate){
             //  微服务远程调用使用feign ，feign 传递数据的时候，没有。
             ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
